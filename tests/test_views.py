@@ -9,6 +9,9 @@ class TestAppViews(TestCase):
             'name':'Initial Category'
         }
         self.test_category = Category.objects.create(name='Test Category')
+        self.test_book_item = Book.objects.create(
+            title='Book Title', description='Book description', 
+            category=self.test_category)
         self.test_book_data = {
             'title': 'Initial test title',
             'description': 'Book description',
@@ -17,6 +20,7 @@ class TestAppViews(TestCase):
         self.add_book_url = reverse('add_book')
         self.add_category_url = reverse('add_category')
         self.homepage_url = reverse('homepage')
+        self.book_detail_url = reverse('book_detail', kwargs={'id': self.test_book_item.id})
         
 
     def test_page_displays_content(self):
@@ -48,3 +52,8 @@ class TestAppViews(TestCase):
         new_book = self.client.post(self.add_book_url, self.test_book_data)
         resp = self.client.get(self.homepage_url)
         self.assertContains(resp, self.test_book_data['title'])
+
+    def test_user_can_view_each_book(self):
+        new_book = self.client.post(self.add_book_url, self.test_book_data)
+        resp = self.client.get(self.book_detail_url)
+        self.assertContains(resp, self.test_book_item.title)

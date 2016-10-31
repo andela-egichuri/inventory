@@ -35,3 +35,7 @@ def add_category(request):
     content['new_category_form'] = form
     return render(request, 'new_category.html', content)
 
+def book_detail_view(request, id):
+    """ Book details view """
+    current_book = Book.objects.get(id=id)
+    return render(request, 'book_detail.html', {'current_book': current_book})
