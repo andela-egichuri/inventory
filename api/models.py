@@ -5,7 +5,7 @@ from django.db import models
 
 class Category(models.Model):
     """ Books Category"""
-    name = models.CharField(max_length=120)
+    name = models.CharField(max_length=120, unique=True)
         
 class Book(models.Model):
     """ Book Model.
