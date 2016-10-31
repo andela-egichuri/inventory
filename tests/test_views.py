@@ -8,40 +8,43 @@ class TestAppViews(TestCase):
         self.test_category_data = {
             'name':'Initial Category'
         }
+        self.test_category = Category.objects.create(name='Test Category')
+        self.test_book_data = {
+            'title': 'Initial test title',
+            'description': 'Book description',
+            'category': self.test_category.id
+        }
+        self.add_book_url = reverse('add_book')
+        self.add_category_url = reverse('add_category')
+        self.homepage_url = reverse('homepage')
         
 
     def test_page_displays_content(self):
-        url = reverse('homepage')
-        resp = self.client.get(url)
+        resp = self.client.get(self.homepage_url)
         self.assertContains(resp, 'All Books')
 
     def test_page_to_add_books_renders(self):
-        url = reverse('add_book')
-        resp = self.client.get(url)
+        resp = self.client.get(self.add_book_url)
         self.assertContains(resp, 'New Book')
 
     def test_page_to_add_categories_renders(self):
-        url = reverse('add_category')
-        resp = self.client.get(url)
+        resp = self.client.get(self.add_category_url)
         self.assertContains(resp, 'New Category')
 
     def test_adding_category_from_the_frontend_works(self):
-        url = reverse('add_category')
         categories_before = Category.objects.count()
-        resp = self.client.post(url, self.test_category_data)
+        resp = self.client.post(self.add_category_url, self.test_category_data)
         categories_after = Category.objects.count()
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(categories_after, categories_before + 1)
 
     def test_adding_book_from_the_frontend_works(self):
-        url = reverse('add_book')
         before_addition = Book.objects.count()
-        test_category = Category.objects.create(name='Test Category')
-        test_book_data = {
-            'title': 'Initial test title',
-            'description': 'Book description',
-            'category': test_category.id
-        }
-        resp = self.client.post(url, test_book_data)
+        resp = self.client.post(self.add_book_url, self.test_book_data)
         after_addition = Book.objects.count()
         self.assertEqual(after_addition, before_addition + 1)
+
+    def test_added_book_can_be_viewed_from_the_front_end(self):
+        new_book = self.client.post(self.add_book_url, self.test_book_data)
+        resp = self.client.get(self.homepage_url)
+        self.assertContains(resp, self.test_book_data['title'])

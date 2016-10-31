@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content%}
-New Book
-{% csrf_token %}
-<form method="POST">
-{{ new_book_form.as_p }}
-<input type="submit" name="Submit">
-</form>
+    New Book
+    <form method="POST">
+        {% csrf_token %}
+        {{ new_book_form.as_p }}
+        <input type="submit" name="Submit">
+    </form>
 {% endblock %}

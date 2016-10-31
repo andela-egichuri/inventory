@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import BookForm, CategoryForm
+from .models import *
 
 def homepage(request):
     """ Function based view for the home page
@@ -7,6 +8,7 @@ def homepage(request):
     User can add book from front end
     """
     content = {}
+    content['all_books'] = Book.objects.all()
     return render(request, 'index.html', content)
 
 

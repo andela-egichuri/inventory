@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content%}
-All Books
+    All Books
 
-<a href="{% url 'add_book' %}">New book</a>
-<a href="{% url 'add_category' %}">New Category</a>
+    <a href="{% url 'add_book' %}">New book</a>
+    <a href="{% url 'add_category' %}">New Category</a>
 
-
+    {% for book in all_books %}
+        {{ book.title }}
+    {% endfor %}
 {% endblock %}
