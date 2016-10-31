@@ -2,9 +2,9 @@
 
 {% block content %}
 New Category
-    <form method="POST">
+    <form method="POST" class="form-horizontal">
         {% csrf_token %}
-        {{ new_category_form.as_p }}
+        {{ new_category_form }}
         <input type="submit" name="Submit">
     </form>
 {% endblock %}
