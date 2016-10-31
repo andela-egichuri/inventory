@@ -39,3 +39,11 @@ def book_detail_view(request, id):
     """ Book details view """
     current_book = Book.objects.get(id=id)
     return render(request, 'book_detail.html', {'current_book': current_book})
+
+def search_by_title(request):
+    content = {}
+    if request.method == 'POST':
+        search_results = Book.objects.filter(title__icontains=request.POST.get('search_term')) 
+        if search_results:
+            content['search_results'] = search_results
+    return render(request, 'search_results.html', content)

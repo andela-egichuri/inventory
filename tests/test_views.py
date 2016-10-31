@@ -20,6 +20,7 @@ class TestAppViews(TestCase):
         self.add_book_url = reverse('add_book')
         self.add_category_url = reverse('add_category')
         self.homepage_url = reverse('homepage')
+        self.search_url = reverse('search')
         self.book_detail_url = reverse('book_detail', kwargs={'id': self.test_book_item.id})
         
 
@@ -57,3 +58,10 @@ class TestAppViews(TestCase):
         new_book = self.client.post(self.add_book_url, self.test_book_data)
         resp = self.client.get(self.book_detail_url)
         self.assertContains(resp, self.test_book_item.title)
+
+    def test_user_can_search_for_book_by_title(self):
+        book_2 = Book.objects.create(
+            title='Second Book Title', description='Second Book description', 
+            category=self.test_category)
+        resp = self.client.post(self.search_url, {'search_term': 'title'})
+        self.assertContains(resp, "Second Book Title")
