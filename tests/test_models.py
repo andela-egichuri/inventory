@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.db.utils import IntegrityError
 from faker import Factory
-from api.models import Category, Book
+from app.models import Category, Book
 
 fake = Factory.create()
 
@@ -26,5 +26,6 @@ class TestAppModels(TestCase):
         self.assertEqual(after_addition, before_addition + 1)
         
     def test_category_name_unique(self):
-        new_category = Category.objects.create(name=self.category_name)
-        self.assertRaises(IntegrityError)
+        with self.assertRaises(IntegrityError):
+            new_category = Category.objects.create(name=self.category_name)
+        
