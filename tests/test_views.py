@@ -34,7 +34,7 @@ class TestAppViews(TestCase):
 
     def test_page_to_add_categories_renders(self):
         resp = self.client.get(self.add_category_url)
-        self.assertContains(resp, 'New Category')
+        self.assertContains(resp, 'Add Category')
 
     def test_adding_category_from_the_frontend_works(self):
         categories_before = Category.objects.count()

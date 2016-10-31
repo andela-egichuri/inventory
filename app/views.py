@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 from .forms import BookForm, CategoryForm
 from .models import *
 
@@ -12,9 +13,10 @@ def homepage(request):
     return render(request, 'index.html', content)
 
 
+@require_http_methods(['GET', 'POST'])
 def add_book(request):
     """ View to render form page"""
-    content = {}
+    content = {'title': 'Home'}
     form = BookForm()
     if request.method == 'POST':
         form = BookForm(request.POST)
@@ -23,10 +25,10 @@ def add_book(request):
     content['new_book_form'] = form
     return render(request, 'new_book.html', content)
 
-
+@require_http_methods(['GET', 'POST'])
 def add_category(request):
     """ View to render form page"""
-    content = {}
+    content = {'title': 'Categories'}
     form = CategoryForm()
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -36,13 +38,16 @@ def add_category(request):
     content['new_category_form'] = form
     return render(request, 'new_category.html', content)
 
+@require_http_methods(['GET', 'POST'])
 def book_detail_view(request, id):
     """ Book details view """
     current_book = Book.objects.get(id=id)
     return render(request, 'book_detail.html', {'current_book': current_book})
 
+@require_http_methods(['GET', 'POST'])
 def search_by_title(request):
-    content = {}
+    """ View for persorming search by title"""
+    content = {'title': 'Search'}
     if request.method == 'POST':
         search_results = Book.objects.filter(title__icontains=request.POST.get('search_term')) 
         if search_results:
