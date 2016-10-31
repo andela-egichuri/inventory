@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
 {% block content%}
-    <h3>{{ current_book.title }} </h3>
-    {{ current_book.description }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{ current_book.title }}
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8">
+                {{ current_book.description }}
+            </div>
+            <div class="col-md-4">
+                <h4> Book Details </h4>
+                Date Added: {{ current_book.date_added }}
+            </div>
+        </div>
+    </div>
+    <h3> </h3>
+    
 {% endblock %}

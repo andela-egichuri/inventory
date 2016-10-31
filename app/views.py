@@ -32,6 +32,7 @@ def add_category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             new_category = form.save()
+    content['categories'] = Category.objects.all()
     content['new_category_form'] = form
     return render(request, 'new_category.html', content)
 

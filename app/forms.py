@@ -1,27 +1,25 @@
-from django.forms import ModelForm
-from crispy_forms.helper import FormHelper
+from django.forms import ModelForm, Textarea, TextInput, Select
 from .models import *  
         
 class BookForm(ModelForm):
     """ Define form fields for Book books"""
-    def __init__(self, *args, **kwargs):
-        super(BookForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
 
     class Meta:
         model = Book
         fields = ['title', 'description', 'category']
+        widgets = {
+            'title': TextInput(attrs={'class': 'form-control'}),
+            'description': Textarea(attrs={'class': 'form-control'}),
+            'category': Select(attrs={'class': 'form-control'})
+        }
 
 
 class CategoryForm(ModelForm):
     """ Define form fields for the Categories"""
 
-    def __init__(self, *args, **kwargs):
-        super(CategoryForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
-
     class Meta(ModelForm):
         model = Category
         fields = ('name', )
+        widgets = {
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Category Name'})
+        }

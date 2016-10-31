@@ -1,9 +1,23 @@
 {% extends 'base.html' %}
 {% block content%}
-    New Book
-    <form method="POST">
+    <h3 class="text-center">New Book</h3>
+    <form method="POST" class="form-horizontal">
         {% csrf_token %}
-        {{ new_book_form.as_p }}
-        <input type="submit" name="Submit">
+        <div class="form-group">
+            <label for="{{ new_book_form.title.id_for_label }}">Title </label>
+            {{ new_book_form.title }}
+            {{ new_book_form.title.errors }}
+        </div>
+        <div class="form-group">
+            <label for="{{ new_book_form.description.id_for_label }}">Description </label>
+            {{ new_book_form.description }}
+            {{ new_book_form.description.errors }}
+        </div>
+        <div class="form-group">
+            <label for="{{ new_book_form.category.id_for_label }}">Category </label>
+            {{ new_book_form.category }}
+            {{ new_book_form.category.errors }}
+        </div>
+        <button type="submit" class="btn btn-default pull-right">Submit</button>
     </form>
 {% endblock %}

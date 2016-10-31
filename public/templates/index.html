@@ -1,27 +1,25 @@
 {% extends 'base.html' %}
 {% block content%}
     <div class="row">
-        <div class="col-md-6">
-            <a href="{% url 'add_book' %}" class="btn btn-default" role="button">New book</a>
-            <a href="{% url 'add_category' %}" class="btn btn-default" role="button">New Category</a>
-        </div>
-        <div class="col-md-6">
-            <form action="{% url 'search' %}" method="POST" class="inline-form">
-            {% csrf_token%}
-                <div class="form-group">
-                    <input type="text" name="search_term">
-                    <input type="submit" name="Submit" class="btn btn-default">
-                </div>
-            </form>
-        </div>
-        <h2>All Books</h2>
+        <h2 class="text-center">All Books</h2>
         <div class="col-md-12">
-            {% for book in all_books %}
-                <div class"col-md-6">
-                    <h3>{{ book.title }}</h3>
-                    {{ book.description }}
-                </div>
-            {% endfor %}
+            {% if all_books%}
+                {% for book in all_books %}
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3><a href="{% url 'book_detail' book.id %}">{{ book.title|capfirst }}</a></h3>
+                                <p> <small> <em>Added: {{ book.date_added }} </em></small> </p>
+                            </div>
+                            <div class="panel-body">
+                                {{ book.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else%}
+                Seems like you haven't added any books yet
+            {% endif %}
         </div>
     </div>
 {% endblock %}

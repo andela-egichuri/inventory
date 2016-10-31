@@ -7,8 +7,8 @@
             {% if search_results %}
                 {% for book in search_results %}
                     <div class"col-md-12">
-                        <h3>{{ book.title }}</h3>
-                        {{ book.description }}
+                        <h3><a href="{% url 'book_detail' book.id %}"> {{ book.title|capfirst }} </a></h3>
+                        {{ book.description|truncatechars:100 }}
                     </div>
                 {% endfor %}
             {% else %}
