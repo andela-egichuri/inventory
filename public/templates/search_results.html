@@ -4,16 +4,14 @@
         
         <h2>Search Results</h2>
         <div class="col-md-12">
-            {% if search_results %}
                 {% for book in search_results %}
                     <div class"col-md-12">
                         <h3><a href="{% url 'book_detail' book.id %}"> {{ book.title|capfirst }} </a></h3>
                         {{ book.description|truncatechars:100 }}
                     </div>
+                {% empty %}
+                    No books found for the search term
                 {% endfor %}
-            {% else %}
-                No books found for the search term
-            {% endif %}
         </div>
     </div>
 {% endblock %}

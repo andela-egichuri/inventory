@@ -1,4 +1,3 @@
-# inventory
+# Inventory
 
 ## Application Setup:
-Install requirements

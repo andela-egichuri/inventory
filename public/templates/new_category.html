@@ -7,15 +7,13 @@
         </div>
         <div class="panel-body">
             <div class="col-md-8">
-                {% if categories %}
-                    <ol>
-                        {% for category in categories %}
-                            <li> {{ category.name|capfirst }} </li>
-                        {% endfor %}
-                    </ol>
-                {% else %}
-                    <h5>No categories added yet </h5>
-                {% endif %}
+                <ul>
+                    {% for category in categories %}
+                        <li> {{ category.name|capfirst }} </li>
+                    {% empty %}
+                        <li>No categories added yet </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="col-md-4">
                 <h4>Add Category</h4>

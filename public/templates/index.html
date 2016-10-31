@@ -3,23 +3,21 @@
     <div class="row">
         <h2 class="text-center">All Books</h2>
         <div class="col-md-12">
-            {% if all_books%}
-                {% for book in all_books %}
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3><a href="{% url 'book_detail' book.id %}">{{ book.title|capfirst }}</a></h3>
-                                <p> <small> <em>Added: {{ book.date_added }} </em></small> </p>
-                            </div>
-                            <div class="panel-body">
-                                {{ book.description }}
-                            </div>
+            {% for book in all_books %}
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3><a href="{% url 'book_detail' book.id %}">{{ book.title|capfirst }}</a></h3>
+                            <p> <small> <em>Added: {{ book.date_added }} </em></small> </p>
+                        </div>
+                        <div class="panel-body">
+                            {{ book.description }}
                         </div>
                     </div>
-                {% endfor %}
-            {% else%}
+                </div>
+            {% empty %}
                 Seems like you haven't added any books yet
-            {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

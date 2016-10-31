@@ -10,7 +10,14 @@
             </div>
             <div class="col-md-4">
                 <h4> Book Details </h4>
-                Date Added: {{ current_book.date_added }}
+                <p>
+                   <em> Date Added: {{ current_book.date_added }} <br>
+                    Last Modified: {{ current_book.date_modified }} </em>
+                </p>
+                <p>
+                    <a href="#" class="btn btn-default">Edit</a>  
+                    <a href="#" class="btn btn-default">Delete</a>
+                </p>
             </div>
         </div>
     </div>
