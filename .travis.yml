@@ -1,0 +1,19 @@
+language: python
+python:
+  - "2.7"
+
+before_install:
+  - "pip install -r requirements.txt"
+  - "pip install coveralls"
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+script:
+  - coverage run manage.py test
+services:
+  - postgresql
+env:
+  global:
+    - TRAVIS_BUILD=true
+    - DB=postgres
+after_success:
+    - coveralls
