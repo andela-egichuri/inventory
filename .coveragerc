@@ -1,0 +1,8 @@
+[report]
+omit =
+    */python?.?/*
+    *__init__*
+    */tests/*
+    */migrations/*
+   */settings/*
+    *manage.py
